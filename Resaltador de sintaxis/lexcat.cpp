@@ -210,6 +210,10 @@ int main(){
     return 0;
 
     string s = "Hello";
-
+    //This is a comment
+    /*
+    This is a bigger comment
+    This is a bigger comment
+    */
     return 0;
 }
