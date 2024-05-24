@@ -21,15 +21,26 @@ def extract_keywords(cpp_code):
         'override', 'this', 'nullptr', 'true', 'false', 'new', 'delete', 'try', 'catch', 'throw',
         'template', 'friend', 'inline', 'operator', 'explicit', 'constexpr', 'mutable',
         'register', 'volatile', 'asm', 'export', 'import', 'sizeof', 'dynamic_cast',
-        'static_cast', 'reinterpret_cast', 'const_cast', 'typeid', 'decltype', 'noexcept', '+',  '-',  '*',
-        '/', '%', '++', '--', '=', '+=', '-=', '*=', '/=', '%=', '==', '!=', '>', '<', '>=', '<=',
-        '&&', '||', '!', '&', '|', '^', '~', '<<', '>>', '<<=', '>>=', '&=', '|=', '^=', '->', '.', '::', '?', ':',
-        '//', '/**/', '(', ')', '[', ']', '{', '}', ';', ','
+        'static_cast', 'reinterpret_cast', 'const_cast', 'typeid', 'decltype', 'noexcept', 
+        '(', ')', '[', ']', '{', '}', ';', ',', '.', '::', '->', '?', ':'
+    ]
+    
+    operators = [
+        '+', '-', '*', '/', '%', '++', '--', '=', '+=', '-=', '*=', '/=', '%=', '==', '!=', '>', '<', '>=', '<=',
+        '&&', '||', '!', '&', '|', '^', '~', '<<', '>>', '<<=', '>>=', '&=', '|=', '^='
+    ]
+
+    comment_patterns = [
+        r'//.*',
+        r'/\*(.|\n)*?\*/' 
     ]
 
     escaped_keywords = [re.escape(keyword) for keyword in keywords]
+    escaped_operators = [re.escape(operator) for operator in operators]
+
+    all_patterns = comment_patterns + escaped_keywords + escaped_operators
+    pattern = r'(' + '|'.join(all_patterns) + r')'
     
-    pattern = r'\b(' + '|'.join(escaped_keywords) + r')\b'
     matches = re.findall(pattern, cpp_code)
     return matches
 
