@@ -15,20 +15,24 @@ def extract_keywords(cpp_code):
         return []
     
     keywords = [
-        '#include','int', 'float', 'char', 'double', 'long', 'if', 'else', 'switch', 'case', 'for', 'while', 'do',
+        '#include', 'int', 'float', 'char', 'double', 'long', 'if', 'else', 'switch', 'case', 'for', 'while', 'do',
         'break', 'continue', 'return', 'void', 'const', 'static', 'public', 'private', 'protected',
         'class', 'struct', 'union', 'enum', 'typename', 'namespace', 'using', 'virtual',
         'override', 'this', 'nullptr', 'true', 'false', 'new', 'delete', 'try', 'catch', 'throw',
         'template', 'friend', 'inline', 'operator', 'explicit', 'constexpr', 'mutable',
         'register', 'volatile', 'asm', 'export', 'import', 'sizeof', 'dynamic_cast',
-        'static_cast', 'reinterpret_cast', 'const_cast', 'typeid', 'decltype', 'noexcept'
+        'static_cast', 'reinterpret_cast', 'const_cast', 'typeid', 'decltype', 'noexcept', '+',  '-',  '*',
+        '/', '%', '++', '--', '=', '+=', '-=', '*=', '/=', '%=', '==', '!=', '>', '<', '>=', '<=',
+        '&&', '||', '!', '&', '|', '^', '~', '<<', '>>', '<<=', '>>=', '&=', '|=', '^=', '->', '.', '::', '?', ':',
+        '//', '/**/', '(', ')', '[', ']', '{', '}', ';', ','
     ]
 
-    pattern = r'\b(' + '|'.join(keywords) + r')\b'
+    escaped_keywords = [re.escape(keyword) for keyword in keywords]
+    
+    pattern = r'\b(' + '|'.join(escaped_keywords) + r')\b'
     matches = re.findall(pattern, cpp_code)
     return matches
 
-# Asegúrate de que la ruta al archivo sea correcta
 path_to_cpp_file = 'lexcat.cpp'
 
 cpp_code = receive_cpp_file(path_to_cpp_file)
