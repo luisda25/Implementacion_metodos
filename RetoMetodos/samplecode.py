@@ -3,6 +3,7 @@ import math
 a = False
 b = True
 c = None
+n = 42.3
 
 # and, or, not
 if a and not b or c:

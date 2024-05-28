@@ -99,7 +99,6 @@ def lexerAritmetico(path):
             estado = 0
             p -= 1
         elif estado == 11:
-
             if lexema in keywords:
                 token = 'keyword'
                 htmlinsertion += "<span style='color:blue'>{}</span>".format(lexema)
