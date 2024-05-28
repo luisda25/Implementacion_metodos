@@ -49,13 +49,14 @@ else:
 
 # except, raise, try
 try:
-    raise ValueError("An example exception")
+    raise ValueError( "An example exception" )
 except ValueError as e:
     print(e)
 
 # finally
 try:
     x = 1 / 0
+    
 except ZeroDivisionError:
     print("Cannot divide by zero")
 finally:

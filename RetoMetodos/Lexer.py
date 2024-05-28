@@ -21,18 +21,18 @@ def lexerAritmetico(path):
     lexema = ''
     token = ''
     num = "0123456789"
-    letras = "abcdfghijklmnopqrstuvwxyzABCDFGHIJKLMNOPQRSTUVWXYZ" #no incluye E ni e
+    letras = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" #no incluye E ni e
     Ee= "Ee"
     blanco = ' '
     keywords = [
                 'or','and','not','assert','with','def','include','string','bool', 'int', 'float', 'char', 'double', 'long', 'if', 'else', 'switch', 'case', 'for', 'while', 'do',
-                'break', 'continue', 'return', 'void', 'const', 'static', 'public', 'private', 'protected',
-                'class', 'struct', 'union', 'enum', 'typename', 'namespace', 'using', 'virtual',
+                'break', 'continue', 'return', 'void', 'const', 'static', 'public', 'private', 'protected', 'None', 'write', 'async', 'in', 'range', 'print', 'del', 'pass', 'raise', 'except', 'finally', 'from', 'nonlocal', 'global', 'is', 'lambda', 'yield', 'match', 'run',
+                'class', 'struct', 'union', 'enum', 'typename', 'namespace', 'using', 'virtual', 'as', 'await',
                 'override', 'this', 'nullptr', 'True', 'False', 'new', 'delete', 'try', 'catch', 'throw',
                 'template', 'friend', 'inline', 'operator', 'explicit', 'constexpr', 'mutable',
                 'register', 'volatile', 'asm', 'export', 'import', 'sizeof', 'dynamic_cast',
                 'static_cast', 'reinterpret_cast', 'const_cast', 'typeid', 'decltype', 'noexcept', 
-                ';', '.', '::', '->', '?','<<','>>'
+                ';', '::', '->', '?','<<','>>'
                 ]
     opening = ['(', '[', '{']
     closing = [')', ']', '}']
@@ -88,10 +88,12 @@ def lexerAritmetico(path):
             token = 'Int'
             htmlinsertion += "<span style='color:red'>{}</span>".format(lexema)
             print(lexema, token)
+            lexema = ''
             estado = 0
             p -= 1
         elif estado == 10:
             token = 'Float'
+            htmlinsertion += "<span style='color:purple'>{}</span>".format(lexema)
             print(lexema, token)
             lexema = ''
             estado = 0
