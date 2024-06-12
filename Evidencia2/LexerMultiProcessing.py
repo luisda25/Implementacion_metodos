@@ -1,9 +1,6 @@
 import os
 import time
-import threading
 import multiprocessing
-
-
 
 #esta funcion, gracias a la magica libreria de os, nos ayuda a encontrar todas las files
 #que terminen en .py
@@ -112,14 +109,14 @@ def lexerAritmetico(path):
         if estado == 9:
             token = 'Int'
             htmlinsertion += "<span style='color:red'>{}</span>".format(lexema)
-            print(lexema, token)
+            #(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
         elif estado == 10:
             token = 'Float'
             htmlinsertion += "<span style='color:purple'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
@@ -127,11 +124,11 @@ def lexerAritmetico(path):
             if lexema in keywords:
                 token = 'keyword'
                 htmlinsertion += "<span style='color:blue'>{}</span>".format(lexema)
-                print(lexema, token)
+                #print(lexema, token)
             else:
                 token = 'variable'
                 htmlinsertion += "<span style='color:lightblue'>{}</span>".format(lexema)
-                print(lexema, token)
+                #print(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
@@ -139,14 +136,14 @@ def lexerAritmetico(path):
             token = 'Opening symbol'
             lexema=c
             htmlinsertion += "<span style='color:yellow'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 13:
             token = 'Closing symbol'
             lexema=c
             htmlinsertion += "<span style='color:yellow'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 14:
@@ -159,19 +156,19 @@ def lexerAritmetico(path):
         elif estado == 15:
             token = 'String'
             htmlinsertion += "<span style='color:orange'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 16:
             token = 'Operator'
             lexema=c
             htmlinsertion += "<span style='color:purple'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 17:
             htmlinsertion += "<span style='color:red'>{}</span>".format("ERROR")
-            print('Error')
+            #print('Error')
         p += 1
         if estado != 0:
             lexema += c 
@@ -224,8 +221,11 @@ if __name__ == "__main__":
 
     end_time = time.time()
     print(end_time-start_time)
+
 """
-#This is code that used multithreading, which is in this case apparently not optimal
+#Este es el codigo que usaba multithreading, que sigue siendo programacion paralela, 
+#sin embargo en las instrucciones de la evidencia se menciona que se deben aprovechar los 
+#nucleos del cpu, lo cual se logra con multiprocessing
 start_time = time.time()
 for file in pathlist:
     threading.Thread(target=lexerAritmetico, args=(file,)).start()
