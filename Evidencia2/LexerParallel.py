@@ -1,5 +1,4 @@
 import os
-import time
 
 #esta funcion, gracias a la magica libreria de os, nos ayuda a encontrar todas las files
 #que terminen en .py
@@ -199,11 +198,5 @@ def lexerAritmetico(path):
         file.write(htmlcode)
 
 #por cada path encontrado anteriormente, ejecutamos la funcion, pasando el path de la lista como parametro
-#revisamos el tiempo desde aqui, pues es el proceso que nos interesa analizar.
-start_time = time.time()
 for path in pathlist:
-    
     lexerAritmetico(path)
-end_time=time.time()
-
-print(end_time-start_time)
