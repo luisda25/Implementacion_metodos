@@ -9,19 +9,19 @@ def find_python_files(folder_path):
                 python_files.append(ruta_completa)
     return python_files
 
-folder_path = "C:\SAMPLEFOLDER"
-list_of_files=os.listdir(folder_path)
 
-for folder_path in list_of_files:
-    print()
+currentWorkDir=os.getcwd()
+#accedemos al directorion en el que estamos trabajando para de ahi poder
+#llegar al folder que queremos
+folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'SAMPLEFOLDER')
+os.chdir(folder_path)
+#cambiamos el directorio al deseado, en este caso queremos, del working dir,
+#acceder a Evidencia2/SAMPLEFOLDER
 
 
 python_files = find_python_files(folder_path)
 for file in python_files:
     print(f"Nombre: {os.path.basename(file)}, Ruta: {file}")
-
-
-
 
 tabla = [[0,1,5,12,6,13,7,8,16,2,17,5,16,5,0],
          [9,1,9,9,9,9,9,9,9,2,9,9,9,9,9],
