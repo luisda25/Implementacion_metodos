@@ -1,4 +1,9 @@
 import os
+import time
+import threading
+import multiprocessing
+
+
 
 #esta funcion, gracias a la magica libreria de os, nos ayuda a encontrar todas las files
 #que terminen en .py
@@ -16,7 +21,7 @@ def find_python_files(folder_path):
 #en este caso queremos, del working dir, acceder a Evidencia2/SAMPLEFOLDER
 currentWorkDir=os.getcwd()
 folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'SAMPLEFOLDER')
-os.chdir(folder_path)
+#os.chdir(folder_path)
 
 #guardamos todas las direcciones en una lista
 pathlist=[]
@@ -188,15 +193,47 @@ def lexerAritmetico(path):
 
     #conseguimos el current working path y le adjuntamos un nombre construido por el 
     #nombre del archivo py +.html
-    folder_path = os.getcwd()
+    wdir = os.getcwd()
+    folder_path = os.path.join(wdir, 'Evidencia2', 'HTMLs')
+    os.chdir(folder_path)
     filename = os.path.basename(path)
     filename+='.html'
     folder_path+=filename
+
     
     #abrimos un file que posiblemente no exista, con w+ lo creamos y escribimos sobre el
     with open(filename, 'w+') as file:
         file.write(htmlcode)
 
 #por cada path encontrado anteriormente, ejecutamos la funcion, pasando el path de la lista como parametro
-for path in pathlist:
-    lexerAritmetico(path)
+#revisamos el tiempo desde aqui, pues es el proceso que nos interesa analizar.
+# Measure the time for parallel processing
+
+if __name__ == "__main__":
+    processes = []
+    
+    for path in pathlist:
+        process = multiprocessing.Process(target=lexerAritmetico, args=(path,))
+        processes.append(process)
+
+    start_time = time.time()
+    for process in processes:
+        process.start()
+    for process in processes:
+        process.join()
+
+    end_time = time.time()
+    print(end_time-start_time)
+"""
+#This is code that used multithreading, which is in this case apparently not optimal
+start_time = time.time()
+for file in pathlist:
+    threading.Thread(target=lexerAritmetico, args=(file,)).start()
+
+for thread in threading.enumerate():
+    if thread is not threading.currentThread():
+        thread.join()
+end_time=time.time()
+print(end_time-start_time)
+
+"""

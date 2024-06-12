@@ -1,6 +1,7 @@
 import os
 import time
 
+start_time = time.time()
 #esta funcion, gracias a la magica libreria de os, nos ayuda a encontrar todas las files
 #que terminen en .py
 def find_python_files(folder_path):
@@ -17,7 +18,7 @@ def find_python_files(folder_path):
 #en este caso queremos, del working dir, acceder a Evidencia2/SAMPLEFOLDER
 currentWorkDir=os.getcwd()
 folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'SAMPLEFOLDER')
-os.chdir(folder_path)
+
 
 #guardamos todas las direcciones en una lista
 pathlist=[]
@@ -189,21 +190,32 @@ def lexerAritmetico(path):
 
     #conseguimos el current working path y le adjuntamos un nombre construido por el 
     #nombre del archivo py +.html
-    folder_path = os.getcwd()
+    folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'HTMLs')
+    os.chdir(folder_path)
     filename = os.path.basename(path)
     filename+='.html'
     folder_path+=filename
-    
+
     #abrimos un file que posiblemente no exista, con w+ lo creamos y escribimos sobre el
     with open(filename, 'w+') as file:
         file.write(htmlcode)
 
+    os.chdir(currentWorkDir)
+
+
 #por cada path encontrado anteriormente, ejecutamos la funcion, pasando el path de la lista como parametro
 #revisamos el tiempo desde aqui, pues es el proceso que nos interesa analizar.
-start_time = time.time()
+
 for path in pathlist:
-    
     lexerAritmetico(path)
 end_time=time.time()
 
 print(end_time-start_time)
+
+"""
+La forma de acceder y moverse entre directorios es diferente, pues aqui, como estamos en el
+mismo programa, si cambiamos de directorio para hacer alguna task, debemos regresar al directorio
+original, pues las acciones de una iteracion pueden afectar a todo el programa.
+
+Esto no funciona asi en el programa paralelo, pues cada proceso es independiente y no afecta a los otros.
+"""
