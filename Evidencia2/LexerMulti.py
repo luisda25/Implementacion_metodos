@@ -1,5 +1,7 @@
 import os
 
+#esta funcion, gracias a la magica libreria de os, nos ayuda a encontrar todas las files
+#que terminen en .py
 def find_python_files(folder_path):
     python_files = []
     for root, dirs, files in os.walk(folder_path):
@@ -16,11 +18,14 @@ currentWorkDir=os.getcwd()
 folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'SAMPLEFOLDER')
 os.chdir(folder_path)
 
+#guardamos todas las direcciones en una lista
 pathlist=[]
 python_files = find_python_files(folder_path)
 for file in python_files:
     pathlist.append(file)
 
+#casi todo lo relacionado a la evidencia 1 se queda igual, salgo algunas cosas en las
+#que necesitabamos codigo mas flexible, como la generacion de html's
 tabla = [[0,1,5,12,6,13,7,8,16,2,17,5,16,5,0],
          [9,1,9,9,9,9,9,9,9,2,9,9,9,9,9],
          [10,2,10,10,10,10,10,10,10,10,10,3,10,10,10],
@@ -181,22 +186,17 @@ def lexerAritmetico(path):
 
         """.format(htmlinsertion)
 
-    
-    
+    #conseguimos el current working path y le adjuntamos un nombre construido por el 
+    #nombre del archivo py +.html
     folder_path = os.getcwd()
-    
     filename = os.path.basename(path)
     filename+='.html'
-    
     folder_path+=filename
-    print("currentworkdir: "+folder_path)
     
     #abrimos un file que posiblemente no exista, con w+ lo creamos y escribimos sobre el
     with open(filename, 'w+') as file:
         file.write(htmlcode)
 
-
+#por cada path encontrado anteriormente, ejecutamos la funcion, pasando el path de la lista como parametro
 for path in pathlist:
-    print(path)
     lexerAritmetico(path)
-    #ejecutar el script de lexerAritmetico por cada vez que exista un path en la lista
