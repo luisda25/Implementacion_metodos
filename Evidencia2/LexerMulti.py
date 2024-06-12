@@ -109,14 +109,14 @@ def lexerAritmetico(path):
         if estado == 9:
             token = 'Int'
             htmlinsertion += "<span style='color:red'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
         elif estado == 10:
             token = 'Float'
             htmlinsertion += "<span style='color:purple'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
@@ -124,11 +124,11 @@ def lexerAritmetico(path):
             if lexema in keywords:
                 token = 'keyword'
                 htmlinsertion += "<span style='color:blue'>{}</span>".format(lexema)
-                print(lexema, token)
+                #print(lexema, token)
             else:
                 token = 'variable'
                 htmlinsertion += "<span style='color:lightblue'>{}</span>".format(lexema)
-                print(lexema, token)
+                #print(lexema, token)
             lexema = ''
             estado = 0
             p -= 1
@@ -136,39 +136,39 @@ def lexerAritmetico(path):
             token = 'Opening symbol'
             lexema=c
             htmlinsertion += "<span style='color:yellow'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 13:
             token = 'Closing symbol'
             lexema=c
             htmlinsertion += "<span style='color:yellow'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 14:
             token = 'Comment'
             
             htmlinsertion += "<span style='color:green'>{}</span><br>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 15:
             token = 'String'
             htmlinsertion += "<span style='color:orange'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 16:
             token = 'Operator'
             lexema=c
             htmlinsertion += "<span style='color:purple'>{}</span>".format(lexema)
-            print(lexema, token)
+            #print(lexema, token)
             lexema = ''
             estado = 0
         elif estado == 17:
             htmlinsertion += "<span style='color:red'>{}</span>".format("ERROR")
-            print('Error')
+            #print('Error')
         p += 1
         if estado != 0:
             lexema += c 
