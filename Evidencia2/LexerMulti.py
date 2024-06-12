@@ -181,9 +181,9 @@ def lexerAritmetico(path):
 
         """.format(htmlinsertion)
 
-    currentWorkDir=os.getcwd()
     
-    folder_path = os.path.join(currentWorkDir,'..','..', 'HTMLs')
+    
+    folder_path = os.getcwd()
     
     filename = os.path.basename(path)
     filename+='.html'
