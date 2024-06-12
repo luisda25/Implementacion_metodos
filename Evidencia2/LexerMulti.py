@@ -9,19 +9,17 @@ def find_python_files(folder_path):
                 python_files.append(ruta_completa)
     return python_files
 
-
-currentWorkDir=os.getcwd()
 #accedemos al directorion en el que estamos trabajando para de ahi poder
-#llegar al folder que queremos
+#llegar al folder que queremos y cambiamos el directorio al deseado, 
+#en este caso queremos, del working dir, acceder a Evidencia2/SAMPLEFOLDER
+currentWorkDir=os.getcwd()
 folder_path = os.path.join(currentWorkDir, 'Evidencia2', 'SAMPLEFOLDER')
 os.chdir(folder_path)
-#cambiamos el directorio al deseado, en este caso queremos, del working dir,
-#acceder a Evidencia2/SAMPLEFOLDER
 
-
+pathlist=[]
 python_files = find_python_files(folder_path)
 for file in python_files:
-    print(f"Nombre: {os.path.basename(file)}, Ruta: {file}")
+    pathlist.append(file)
 
 tabla = [[0,1,5,12,6,13,7,8,16,2,17,5,16,5,0],
          [9,1,9,9,9,9,9,9,9,2,9,9,9,9,9],
@@ -64,7 +62,6 @@ def lexerAritmetico(path):
                 '&&', '||', '!', '^',':',','
                 ] #no incluye -
     
-    
     while p<len(code) and estado != 17:
         c = code[p]
 
@@ -97,14 +94,10 @@ def lexerAritmetico(path):
         elif c == "\n":
             if not htmlinsertion.endswith("<br>"):
                 htmlinsertion += "<br>"
-            
             col = 14
         else:
             col = 10
 
-            
-        
-            
         estado = tabla[estado][col]
         if estado == 9:
             token = 'Int'
@@ -169,10 +162,7 @@ def lexerAritmetico(path):
         elif estado == 17:
             htmlinsertion += "<span style='color:red'>{}</span>".format("ERROR")
             print('Error')
-            
-        
         p += 1
-        
         if estado != 0:
             lexema += c 
             
@@ -191,6 +181,22 @@ def lexerAritmetico(path):
 
         """.format(htmlinsertion)
 
-    with open('resaltador.html', 'w') as file:
+    currentWorkDir=os.getcwd()
+    
+    folder_path = os.path.join(currentWorkDir,'..','..', 'HTMLs')
+    
+    filename = os.path.basename(path)
+    filename+='.html'
+    
+    folder_path+=filename
+    print("currentworkdir: "+folder_path)
+    
+    #abrimos un file que posiblemente no exista, con w+ lo creamos y escribimos sobre el
+    with open(filename, 'w+') as file:
         file.write(htmlcode)
 
+
+for path in pathlist:
+    print(path)
+    lexerAritmetico(path)
+    #ejecutar el script de lexerAritmetico por cada vez que exista un path en la lista
